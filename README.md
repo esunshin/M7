@@ -6,10 +6,9 @@ This system generates comedic stand up routines. It is called the "Stand Up Stoo
 
 **Setup**:
 
-Running `generate.py` will use the pre-trained model to generate 1000 characters of new material, using a random (HOW LONG?) segment of the input (pre-existing) text as a seed input. 
-
-Major dependencies are:
-– Keras
+Running `generate.py` will use the pre-trained model to generate 1000 characters of new material, using a random 250 character segment of the input (pre-existing) text as a seed input.  
+Major dependencies are:  
+– Keras  
 – numpy
 
 ---
@@ -33,14 +32,11 @@ Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were
 | dense_1 (Dense)         | (None, 200)      | 100200  |
 | dense_2 (Dense)         | (None, 29)       | 5829    |
 
-Once the model was trained, it is used to generate new stand up routines. By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. 
-The generator can also use user input as the initial input seed.
-Valid calls to the generator:
+Once the model was trained, it is used to generate new stand up routines. By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. The generator can also use user input as the initial input seed.
 
-`python3 create.py <'seedText'> <outputLength>`
-
-`python3 create.py <'seedText'>`
-
+Valid calls to the generator:  
+`python3 create.py <'seedText'> <outputLength>`  
+`python3 create.py <'seedText'>`  
 `python3 create.py`
 
 If seedText is `random`, the seed will be set to a random combination of (a-z, ' ', '\n') characters.
@@ -57,9 +53,9 @@ The system strives for both novelty and value, which are common goals in computa
 
 In terms of *Generation of Results*, the system is only moderately successful. I would consider a complete success as output that is logical (in terms of grammar, syntax, etc.) without simply reproducing content from the original routines used as the inspiring set. Unfortunately, I found it difficult to balance these two factors. The output obtained through various trials of 'window' size (the length of the input string), model specification, and input changes (including/excluding punctuation) resulted in one of either of these faults. Very often (especially with under-trained/weak models or very (50 characters) short input windows) the output would become a repeating series of some number of words. Otherwise, the output would replicate the input set to some degree (often this would entail the output being composed of chunks of pre-existing routines, with sudden jumps between them). Both of these disappointing results can be seen in the generated output in the 'examples' folder.
 
-The other criteria I set out to achieve is Independence and Freedom. This focuses more particularly on the novelty of the system output. I hoped that having a character-level model (as opposed to word-level) would encourage novelty. In theory, any string of the allowed characters is feasible. However, this restriction of limiting the output to what is the input is made of is a limitation I did not fully understand when planning. I thought that removing punctuation and other marks (as said before, only allowing for a-z, ' ', and '\n') would have multiple benefits. 
-Most simply, limiting the options decreases the size of the problem, as there are fewer input and output possibilities. On evaluation, I maintain that this is true, as removing other symbols reduced the model size and increased training speed. 
-Additionally, I thought that making the inspiring text more similar by removing other 'rarer' characters would enable more holistic learning of general sentence and joke structure, rather than learning the exact construction of individual sentences in the inspiring set. It now seems like this is not true. Perhaps having more input variation would have led to a similarly varied output. 
+The other criteria I set out to achieve is Independence and Freedom. This focuses more particularly on the novelty of the system output. I hoped that having a character-level model (as opposed to word-level) would encourage novelty. In theory, any string of the allowed characters is feasible. However, this restriction of limiting the output to what is the input is made of is a limitation I did not fully understand when planning. I thought that removing punctuation and other marks (as said before, only allowing for a-z, ' ', and '\n') would have multiple benefits.  
+Most simply, limiting the options decreases the size of the problem, as there are fewer input and output possibilities. On evaluation, I maintain that this is true, as removing other symbols reduced the model size and increased training speed.  
+Additionally, I thought that making the inspiring text more similar by removing other 'rarer' characters would enable more holistic learning of general sentence and joke structure, rather than learning the exact construction of individual sentences in the inspiring set. It now seems like this is not true. Perhaps having more input variation would have led to a similarly varied output.  
 Finally, removing all punctuation also negatively impacts the understandability of the output. Much of stand up is situational comedy. This often requires quoting other people. By removing quotation marks from the system's vocabulary, it loses the concept of fluidly encorporating quotations in stand up routines, and the resulting text output is much less clear (as it is difficult to tell if the text is the system 'speaking' or 'quoting' something/one else).
 
 ---

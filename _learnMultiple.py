@@ -10,7 +10,6 @@ some code/structure borrowed from:
  - https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/
 
 current state: potentially not working, as 'learn.py' is the main focus. 
-
 """
 
 import pickle

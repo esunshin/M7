@@ -8,7 +8,6 @@ description: generates new comedy routines using Keras model trained in 'learn.p
 some code/structure borrowed from:
  - https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/
  - https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/
-
 """
 
 from learn import SEQUENCES_NAME, pickle, array, INPUT_LENGTH, reshape

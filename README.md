@@ -9,7 +9,7 @@ The [Keras docs](https://keras.io) were utilized heavily. Additionally, these tw
 
 **Setup**:
 
-Running `generate.py` will use the pre-trained model to generate (default) 1000 characters of new material, using a random 250-character segment of the input (pre-existing) text as a seed input.  
+Running `create.py` will use the pre-trained model to generate (default) 1000 characters of new material, using a random 250-character segment of the input (pre-existing) text as a seed input.  
 Major dependencies are:  
 – Keras  
 – numpy

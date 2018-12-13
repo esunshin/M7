@@ -26,7 +26,7 @@ All content came from Jerry Seinfeld, John Mulaney, Sarah Silverman, or Trevor N
 Training was done using a Keras neural network in `learn.py`. Characters (a-z, ' ', '\n') were tracked using one-hot encoding. The model uses an initial embedding layer, two LSTM layers with dropout after each, and a dense layer before the SoftMax output layer (See summary below). This structure was inspired by online resources and finalized after iterative testing of designs. The model learned on 250 characters of the input set, with the expected output being the next character in the text. It ran for 50 epochs, or until loss stopped decreasing.
 
 | Layer (type)            | Output Shape     | Param # |
-|-------------------------|------------------|---------|
+|:-----------------------:|:----------------:|:-------:|
 | embedding_1 (Embedding) | (None, 250, 16)  | 464     |
 | lstm_1 (LSTM)           | (None, 250, 500) | 1034000 |
 | dropout_1 (Dropout)     | (None, 250, 500) | 0       |

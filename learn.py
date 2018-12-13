@@ -1,4 +1,16 @@
-# from scrape_standup import LOGUES_NAME, CHARS_NAME, pickle
+"""
+name: Ezra Sunshine
+course: CSCI 3725
+assignment: M7
+date: 12/13/18
+description: trains Keras model on Seinfeld stand up routines
+
+some code/structure borrowed from:
+ - https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/
+ - https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/
+
+"""
+
 import pickle
 import re
 from keras.preprocessing.text import Tokenizer
@@ -7,30 +19,15 @@ from keras.models import Sequential
 from keras.layers import Embedding, LSTM, Dense, Dropout
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from numpy import array, reshape
-from keras.models import load_model
-
-# import keras
 
 SEQUENCES_NAME = "sequences.p"
-LOGUES_NAME = 'inputMore.txt'
-# monologues = pickle.load(open(LOGUES_NAME, "rb"))
-# characters = pickle.load(open(CHARS_NAME, "rb"))
+LOGUES_NAME = 'routines/jerrySeinfeld.txt'
 
-INPUT_LENGTH = 50
+INPUT_LENGTH = 250
 
-FILES = [
-    'trevorNoah.txt',
-    'sarahSilverman.txt',
-    'johnMulaney.txt',
-    'jerrySeinfeld.txt'
-]
-
-# PUNCT_REG = re.compile(r"""["\-:;,.?!()*]""")
 PUNCT_REG = re.compile(r"""["\-:;,.?!()*0-9…$‘’“”_]""") # to remove numbers as well
 APOST_REG = re.compile(r"'")
 SPACE_REG = re.compile(r' +')
-
-# print(monologues)
 
 
 def segment_text_restrictive():
@@ -43,6 +40,7 @@ def segment_text_restrictive():
     monologues = SPACE_REG.sub(' ', monologues)
 
     monologues = monologues.lower()
+
     words = monologues.split(' ')
     print("All words: " + str(len(words)))
     print("Unique: " + str(len(list(set(words)))))
@@ -54,17 +52,6 @@ def segment_text_restrictive():
     print("Unique: " + str(len(list(set(tokens)))))
     print(list(set(tokens)))
 
-    return tokens
-
-def segment_text():
-    monologues = ""
-    with open(LOGUES_NAME, "r") as f:
-        monologues += f.read()
-
-    # monologues = pickle.load(open(LOGUES_NAME, "rb"))
-    tokens = [char for char in monologues]
-    print("All tokens: " + str(len(tokens)))
-    print("Unique: " + str(len(list(set(tokens)))))
     return tokens
 
 def generate_sequences(tokens):
@@ -141,39 +128,6 @@ def main():
 
 def main2():
     segments = segment_text_restrictive()
-
-def main3():
-
-    sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
-
-
-    tokenizer, tokenized_sequences = tokenize_sequences(sequences)
-    vocab_size = len(tokenizer.word_index) + 1
-    print(vocab_size)
-
-    # separate into input and output
-    x, y = split_input_output(tokenized_sequences, vocab_size)
-    seq_length = x.shape[1]
-    print(x)
-    print(y)
-
-    # define model
-    print("vocab_size: ", vocab_size, " seq_length: ", seq_length)
-
-
-    pickle.dump(tokenizer, open('tokenizerNew.p', 'wb'))
-
-    model = load_model('model.h5')
-
-    checkpoint = ModelCheckpoint('tmp/newWeights.{epoch:02d}.hdf5')
-    stop_early = EarlyStopping(monitor='loss', patience=2)
-
-    callbacks = [checkpoint, stop_early]
-    # fit model
-    model.fit(x, y, batch_size=512, epochs=25, callbacks=callbacks)
-
-    model.save('modelNew.h5')
-
 
 if __name__ == "__main__":
     main()

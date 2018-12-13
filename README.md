@@ -1,6 +1,6 @@
 **Overview**: 
 
-This system generates comedic stand up routines. It is called the "Stand Up Stooge." It uses a neural network that implements long short-term memory (LSTM) units to learn from Seinfeld's previous routines, and then generates new routines. Ten example outputs can be see in the 'examples' folder. The '|' symbol indicates the change from seed text to generated text.
+This system generates comedic stand up routines. It is called the "Stand Up Stooge." It uses a neural network that implements long short-term memory (LSTM) units to learn from Seinfeld's previous routines, and then generates new routines. Learning implements early stopping (based on loss values ceasing to decrease) and check-pointing. Ten example outputs can be see in the 'examples' folder. The '|' symbol indicates the change from seed text to generated text.
 
 Much of the learning and generation code was borrowed from these two keras tutorials, although was modified to suit my needs. [(1)](https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/) [(2)](https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/)
 
@@ -22,7 +22,7 @@ This system focuses on comedy generation. Previous works in this realm have focu
 Collection of previous stand-up material was done largely by hand. Stand up routines from the show *Seinfeld* were taken from scripts found here: [IMSDB – Seinfeld](https://www.imsdb.com/TV/Seinfeld.html). The remaining stand up routines were pulled from [Scraps from the Loft](https://scrapsfromtheloft.com/tag/stand-up-transcripts/). This latter site seems more capable of being scraped using an automated method, if collecting much more inspiring routines was desired in the future.
 All content came from Jerry Seinfeld, John Mulaney, Sarah Silverman, or Trevor Noah.
 
-Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were tracked using one-hot encoding. The model uses an initial embedding layer, two LSTM layers with dropout after each, and a dense layer before the softmax output layer (See summary below). This structure was inspired by online resources and finalized after iterative testing of designs. The model learned on 250 characters of the input set, with the expected output being the next character in the text. It ran for 50 epochs, or until loss stopped decreasing.
+Training was done using a Keras neural network in `learn.py`. Characters (a-z, ' ', '\n') were tracked using one-hot encoding. The model uses an initial embedding layer, two LSTM layers with dropout after each, and a dense layer before the softmax output layer (See summary below). This structure was inspired by online resources and finalized after iterative testing of designs. The model learned on 250 characters of the input set, with the expected output being the next character in the text. It ran for 50 epochs, or until loss stopped decreasing.
 
 | Layer (type)            | Output Shape     | Param # |
 |-------------------------|------------------|---------|
@@ -34,7 +34,7 @@ Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were
 | dense_1 (Dense)         | (None, 200)      | 100200  |
 | dense_2 (Dense)         | (None, 29)       | 5829    |
 
-Once the model was trained, it is used to generate new stand up routines. By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. The generator can also use user input as the initial input seed.
+Once the model was trained, it is used to generate new stand up routines (`create.py`). By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. The generator can also use user input as the initial input seed.
 
 Valid calls to the generator:  
 `python3 create.py <'seedText'> <outputLength>`  

@@ -1,3 +1,16 @@
+"""
+name: Ezra Sunshine
+course: CSCI 3725
+assignment: M7
+date: 12/13/18
+description: generates new comedy routines using Keras model trained in 'learn.py'
+
+some code/structure borrowed from:
+ - https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/
+ - https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/
+
+"""
+
 from learn import SEQUENCES_NAME, pickle, array, INPUT_LENGTH, reshape
 from random import randint
 from keras.models import load_model
@@ -47,7 +60,6 @@ def print_error():
 
 def main():
 
-    
     seed = ''
     user_seed = ''
     gen_length = '-1'
@@ -77,13 +89,11 @@ def main():
     if gen_length.isnumeric():
         gen_length = int(gen_length)
         if gen_length < 0:
-            gen_length = 500
+            gen_length = 1000
     else:
-        gen_length = 500
+        gen_length = 1000
 
     print(gen_length)
-
-    print(user_seed + "\n")
 
 
     tokenizerPath = 'tokenizer2.p'
@@ -94,9 +104,8 @@ def main():
     model = load_model(modelFilePath)
     seq = generate_seq(model, tokenizer, INPUT_LENGTH, seed, gen_length)
 
-
+    print(user_seed + "|" + seq)
     print()
-    print(seq)
 
 
 if __name__ == "__main__":

@@ -61,3 +61,6 @@ Valid calls to the generator:
 thoughts to include:
     stripped out quotation marks --> lose the comedian using quotes in a situation
         --> can be inferred, but not super easy
+
+
+### REMEMBER TO SITE THIS AND CODE TODO

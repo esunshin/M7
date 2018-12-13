@@ -7,6 +7,7 @@ from keras.models import Sequential
 from keras.layers import Embedding, LSTM, Dense, Dropout
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from numpy import array, reshape
+from keras.models import load_model
 
 # import keras
 
@@ -140,6 +141,39 @@ def main():
 
 def main2():
     segments = segment_text_restrictive()
+
+def main3():
+
+    sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
+
+
+    tokenizer, tokenized_sequences = tokenize_sequences(sequences)
+    vocab_size = len(tokenizer.word_index) + 1
+    print(vocab_size)
+
+    # separate into input and output
+    x, y = split_input_output(tokenized_sequences, vocab_size)
+    seq_length = x.shape[1]
+    print(x)
+    print(y)
+
+    # define model
+    print("vocab_size: ", vocab_size, " seq_length: ", seq_length)
+
+
+    pickle.dump(tokenizer, open('tokenizerNew.p', 'wb'))
+
+    model = load_model('model.h5')
+
+    checkpoint = ModelCheckpoint('tmp/newWeights.{epoch:02d}.hdf5')
+    stop_early = EarlyStopping(monitor='loss', patience=2)
+
+    callbacks = [checkpoint, stop_early]
+    # fit model
+    model.fit(x, y, batch_size=512, epochs=25, callbacks=callbacks)
+
+    model.save('modelNew.h5')
+
 
 if __name__ == "__main__":
     main()

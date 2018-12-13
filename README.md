@@ -47,16 +47,29 @@ Valid calls to the generator:
 
 If seedText is `random`, the seed will be set to a random combination of (a-z, ' ', '\n') characters.
 
-Fig. 1 – Diagram of system
-![Figure 1, diagram of system](/structure.png "Optional Title")
+*Fig. 1* – Diagram of system
+![Figure 1, diagram of system](/structure.png "System Diagram")
+The source text is fed into the learning algorithm, which models the probability of a following character given a series of previous characters. The trained model is then used, along with seed text, in the generator to create novel comedic stand u routines as output. 
 
 ---
 
 **Computational Creativity**: You should follow the general SPECS procedure to evaluate your system. Start by stating your assumptions and definitions for what it means for a system to be creative here. These statements should be founded on prior work (i.e., you should be citing respected scholars in the field). Next, clearly state at least one creativity metric for your system and evaluate it based on that metric. This metric can be derived from the SPECS themes, Ritchie's criteria, the Four PPPPerspectives, or another formalized evaluation procedure from scholarly work (e.g. Colton's Creative Tripod). Regardless of the metric and definitions you specify, you must acknowledge any limitations, biases, or potential issues with your evaluation. Your grade will not be affected if your data is biased or limited unless you leave out this information.
 
-As are common goals in computational creativity study, the system strives for both novelty and value ([https://link.springer.com/article/10.1007/s12559-012-9156-1#Sec13]).
+As are common goals in computational creativity study, the system strives for both novelty and value ([https://link.springer.com/article/10.1007/s12559-012-9156-1#Sec13]). As stated previously, however, it is not easy to describe how or why something is funny. This complicates evaluating value. I decided to simply use my own personal judgement in deciding how funny the output was. I chose to evaluate the system primarily on the 'Generation of Results' and 'Independence and Freedom' SPECS criteria.
+
+In terms of Generation of Results, the system is only moderately successful. I would consider a complete success as output that is logical (in terms of grammar, syntax, etc.) without simply reproducing content from the original routines used as an inspiring set. Unfortunately, I found it difficult to balance these two factors. The output obtained through various trials of 'window' size (the length of the input string), model specification, and input changes (including/excluding punctuation) resulted in one of either of these faults. Very often (especially with under-trained/weak models) the output would become a repeating series of some number of words. Otherwise, the output would replicate the input set to some degree (often this would entail the output being composed of chunks of pre-existing routines, with sudden jumps between them). 
+
+The other criteria I set out to achieve is Independence and Freedom. This focuses more particularly on the novelty of the system output. I hoped that having a character-level model (as opposed to word-level) would encourage novelty. In theory, any string of the allowed characters is feasible. However, this restriction of limiting the output to what is the input is made of is a limitation I did not fully understand when planning. I thought that removing punctuation and other marks (as said before, only allowing for a-z, ' ', and '\n') would have multiple benefits. 
+Most simply, limiting the options decreases the size of the problem, as there are fewer input and output possibilities. On evaluation, I maintain that this is true. 
+Additionally, I thought that making the inspiring text more similar by removing other 'rarer' characters would enable more holistic learning of general sentence and joke structure, rather than learning the exact construction of individual sentences in the inspiring set. It now seems like this is not true. Perhaps having more input variation would have led to a similarly varied output. 
+Finally, removing all punctuation also negatively impacts the understandability of the output. Much of stand up is situational comedy. This might requires quoting other people. By removing quotation marks from the system's vocabulary, it loses the concept of utilizing fluid quotations in stand up routines, and the resulting text output is much less clear (as it is difficult to tell if the text is the system 'speaking' or 'quoting' something/one else).
 
 
+SPECS:
+    Generation of Results 
+    Independence and Freedom
+
+# tail -f hpc.29168.o583464 #
 ---
 
 **Personal Challenges**: Describe how you personally challenged yourself on this assignment as a computer scientist. How did you strive to make your system unique, meaningful, and use sophisticated techniques? How did you push yourself as a scholar and a programmer? What new techniques did you try? What discoveries and connections did you make?

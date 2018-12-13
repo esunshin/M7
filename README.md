@@ -3,7 +3,7 @@
 This system generates comedic stand-up routines. It is called the "Stand Up Stooge." It uses a neural network that implements long short-term memory (LSTM) units to learn from Seinfeld's previous routines, and then generates new routines. Learning implements early stopping (based on loss values ceasing to decrease) and check-pointing. Ten example outputs can be seen in the 'examples' folder. The '|' symbol indicates the change from seed text to generated text. 
 `all_routines.txt` contains multiple generations from training on routines on four different comedians (including Seinfeld). As there was significantly more text to train on, it seems that the model did not have enough predictive power, as the output is highly repetitive (discussed further below). `_learnMultiple.py` was used to train this model (not included here).
 
-Much of the learning and generation code was borrowed from these two Keras tutorials, although was modified to suit my needs: [(analyticsvidhya.com)](https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/) [(machinelearningmastery.com)](https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/)
+Some of the learning and generation code was borrowed from these two Keras tutorials, although was modified to suit my needs: [(analyticsvidhya.com)](https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/) [(machinelearningmastery.com)](https://machinelearningmastery.com/how-to-develop-a-word-level-neural-language-model-in-keras/)
 
 ---
 

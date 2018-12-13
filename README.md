@@ -9,6 +9,8 @@ The [Keras docs](https://keras.io) were utilized heavily. Additionally, these tw
 
 **Setup**:
 
+Running `learn.py` will train the model on the Seinfeld stand-up routines (although a pre-trained model is provided).
+
 Running `create.py` will use the pre-trained model to generate (default) 1000 characters of new material, using a random 250-character segment of the input (pre-existing) text as a seed input.  
 Major dependencies are:  
 – Keras  

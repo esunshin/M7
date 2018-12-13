@@ -17,6 +17,13 @@ LOGUES_NAME = 'inputMore.txt'
 
 INPUT_LENGTH = 50
 
+FILES = [
+    'trevorNoah.txt',
+    'sarahSilverman.txt',
+    'johnMulaney.txt',
+    'jerrySeinfeld.txt'
+]
+
 # PUNCT_REG = re.compile(r"""["\-:;,.?!()*]""")
 PUNCT_REG = re.compile(r"""["\-:;,.?!()*0-9…$‘’“”_]""") # to remove numbers as well
 APOST_REG = re.compile(r"'")
@@ -28,7 +35,6 @@ SPACE_REG = re.compile(r' +')
 def segment_text_restrictive():
     monologues = ""
     with open(LOGUES_NAME, "r") as f:
-        # line = f.read()
         monologues += f.read()
 
     monologues = APOST_REG.sub('', monologues)
@@ -40,13 +46,13 @@ def segment_text_restrictive():
     print("All words: " + str(len(words)))
     print("Unique: " + str(len(list(set(words)))))
     print()
-    # monologues = pickle.load(open(LOGUES_NAME, "rb"))
+
     tokens = [char for char in monologues]
     # print(tokens)
     print("All chars: " + str(len(tokens)))
     print("Unique: " + str(len(list(set(tokens)))))
     print(list(set(tokens)))
-    # print(monologues)
+
     return tokens
 
 def segment_text():
@@ -78,7 +84,6 @@ def split_input_output(sequences, vocab_size):
     x, y = tokenized_sequences[:,:-1], tokenized_sequences[:,-1]
     y = to_categorical(y, num_classes=vocab_size)
     return x, y
-    # seq_length = X.shape[1]
 
 def create_model(vocab_input_dim, dense_output_dim, input_sequence_length):
     model = Sequential()
@@ -91,21 +96,6 @@ def create_model(vocab_input_dim, dense_output_dim, input_sequence_length):
     model.add(Dense(vocab_input_dim, activation='softmax'))
     print(model.summary())
     return model
-
-"""
-def create_model_no_embedding(vocab_input_dim, input_sequence_length, shape):
-    
-    model = Sequential()
-    # model.add(Embedding(vocab_input_dim, dense_output_dim, input_length=input_sequence_length))
-    model.add(LSTM(400, input_shape=(shape[1], shape[2]), return_sequences=True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(400))
-    model.add(Dropout(0.2))
-    # model.add(Dense(100, activation='relu'))
-    model.add(Dense(vocab_input_dim, activation='softmax'))
-    print(model.summary())
-    return model
-"""
 
 def fit_model_and_save(tokenizer, model, x_in, y_in, batch_size, epochs):
     pickle.dump(tokenizer, open('tokenizer.p', 'wb'))
@@ -126,7 +116,7 @@ def fit_model_and_save(tokenizer, model, x_in, y_in, batch_size, epochs):
 
 def main():
     segments = segment_text_restrictive() 
-   #segments = segment_text()
+    # segments = segment_text()
     generate_sequences(segments)
     sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
 

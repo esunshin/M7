@@ -38,15 +38,20 @@ Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were
 Once the model was trained, it is used to generate new stand up routines. By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. 
 The generator can also use user input as the initial input seed.
 Valid calls to the generator:
+
 `python3 create.py <'seedText'> <outputLength>`
+
 `python3 create.py <'seedText'>`
+
 `python3 create.py`
 
+If the seedText is `random`, the seedText will be set to a random combination of (a-z, ' ', '\n') characters.
 
 ---
 
 **Computational Creativity**: You should follow the general SPECS procedure to evaluate your system. Start by stating your assumptions and definitions for what it means for a system to be creative here. These statements should be founded on prior work (i.e., you should be citing respected scholars in the field). Next, clearly state at least one creativity metric for your system and evaluate it based on that metric. This metric can be derived from the SPECS themes, Ritchie's criteria, the Four PPPPerspectives, or another formalized evaluation procedure from scholarly work (e.g. Colton's Creative Tripod). Regardless of the metric and definitions you specify, you must acknowledge any limitations, biases, or potential issues with your evaluation. Your grade will not be affected if your data is biased or limited unless you leave out this information.
 
+As are common goals in computational creativity study, the system strives for both novelty and value ([https://link.springer.com/article/10.1007/s12559-012-9156-1#Sec13]).
 
 
 ---

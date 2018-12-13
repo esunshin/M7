@@ -4,6 +4,14 @@ from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 import sys
 
+possible_chars = 'abcdefghijklmnopqrstuvwxyz \n'
+
+def seed_is_legal(seed):
+    for char in seed:
+        if char not in possible_chars:
+            return False
+    return True
+
 # generate a sequence from a language model
 def generate_seq(model, tokenizer, seq_length, seed_text, n_words):
     result = list()
@@ -41,36 +49,41 @@ def main():
 
     # print(str(sys.argv))
     # exit(0)
+    seed = ''
+    user_seed = ''
+    gen_length = '-1'
 
-    if len(sys.argv) > 3:
-        print('46')
+    if len(sys.argv) > 1:
+        seed = sys.argv[1].strip().lower()
+    if len(sys.argv) == 3:
+        gen_length = sys.argv[2]
+    elif len(sys.argv) > 3:
         print_error()
         return
-    elif len(sys.argv) == 3:
-        print('50')
-        gen_length = sys.argv[2]
-        if not gen_length.isnumeric():
-            print_error()
-            return
-        gen_length = int(gen_length)
-        seed = sys.argv[1]
 
-    elif len(sys.argv) == 2 and not sys.argv[1].isnumeric():
-        print('59')
-        gen_length = 500
-        user_seed = sys.argv[1]
-        user_seed = user_seed[:INPUT_LENGTH]
-        seed = (INPUT_LENGTH - len(user_seed)) * ' ' + user_seed
+    if seed != '':
+        if seed == 'random':
+            for _ in range(INPUT_LENGTH):
+                user_seed += possible_chars[randint(0, len(possible_chars)-1)]
+        elif seed_is_legal(seed):
+            user_seed = seed[:INPUT_LENGTH]
+            user_seed = (INPUT_LENGTH - len(user_seed)) * ' ' + user_seed
+        else:
+            sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
+            user_seed = sequences[randint(0, len(sequences))]
+
+    if gen_length.isnumeric():
+        gen_length = int(gen_length)
+        if gen_length < 0:
+            gen_length = 500
     else:
-        print('65')
         gen_length = 500
-        sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
-        seed = sequences[randint(0, len(sequences))]
-        assert len(seed) == INPUT_LENGTH
 
     print(gen_length)
 
-    print(seed + "\n")
+    print(user_seed + "\n")
+
+    exit(0)
 
     tokenizerPath = 'tokenizer2.p'
     modelFilePath = 'model.h5'

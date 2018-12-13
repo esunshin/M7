@@ -29,7 +29,9 @@ PUNCT_REG = re.compile(r"""["\-:;,.?!()*0-9…$‘’“”_]""") # to remove nu
 APOST_REG = re.compile(r"'")
 SPACE_REG = re.compile(r' +')
 
-
+"""
+Cleans the input text, and breaks it into a list of characters
+"""
 def segment_text_restrictive():
     monologues = ""
     with open(LOGUES_NAME, "r") as f:
@@ -54,6 +56,12 @@ def segment_text_restrictive():
 
     return tokens
 
+"""
+Creates a list of strings that represent the training data.
+Each string contains an (INPUT_LENGTH+1)-long series of characters
+The last character of each string is the expected output, when the input is
+ the rest of the string's characters
+"""
 def generate_sequences(tokens):
     sequence_length = INPUT_LENGTH + 1
     sequences = []
@@ -62,17 +70,28 @@ def generate_sequences(tokens):
     pickle.dump(sequences, open(SEQUENCES_NAME, "wb"))
     print(str(len(sequences)) + " sequences")
 
+"""
+Trains a tokenizer on the input, which sets up the mapping from 
+ character to integer for later one-hot encoding/decoding
+Then created tokenized arrays from the string sequences
+"""
 def tokenize_sequences(sequences):
     tokenizer = Tokenizer(filters=None, char_level=True)
     tokenizer.fit_on_texts(sequences)
     return tokenizer, tokenizer.texts_to_sequences(sequences)
 
+"""
+Splits the tokenized arrays into an array of input arrays, and array of the output for each input array
+"""
 def split_input_output(sequences, vocab_size):
     tokenized_sequences = array(sequences)
     x, y = tokenized_sequences[:,:-1], tokenized_sequences[:,-1]
     y = to_categorical(y, num_classes=vocab_size)
     return x, y
 
+"""
+Creates the Keras model
+"""
 def create_model(vocab_input_dim, dense_output_dim, input_sequence_length):
     model = Sequential()
     model.add(Embedding(vocab_input_dim, dense_output_dim, input_length=input_sequence_length))
@@ -85,6 +104,9 @@ def create_model(vocab_input_dim, dense_output_dim, input_sequence_length):
     print(model.summary())
     return model
 
+"""
+Fits the model on the training data, and saves the tokenizer and model
+"""
 def fit_model_and_save(tokenizer, model, x_in, y_in, batch_size, epochs):
     pickle.dump(tokenizer, open('tokenizer.p', 'wb'))
     # compile model
@@ -101,7 +123,9 @@ def fit_model_and_save(tokenizer, model, x_in, y_in, batch_size, epochs):
     # save the tokenizer
     pickle.dump(tokenizer, open('tokenizer2.p', 'wb'))
 
-
+"""
+Manages cleaning/formating the input data and the training the model on it.
+"""
 def main():
     segments = segment_text_restrictive() 
     # segments = segment_text()
@@ -126,6 +150,9 @@ def main():
     
     fit_model_and_save(tokenizer, model, x, y, 512, 50)
 
+"""
+For testing purposes
+"""
 def main2():
     segments = segment_text_restrictive()
 

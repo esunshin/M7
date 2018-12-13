@@ -13,7 +13,6 @@ current state: potentially not working, as 'learn.py' is the main focus.
 
 """
 
-
 import pickle
 import re
 from keras.preprocessing.text import Tokenizer

@@ -47,8 +47,7 @@ def print_error():
 
 def main():
 
-    # print(str(sys.argv))
-    # exit(0)
+    
     seed = ''
     user_seed = ''
     gen_length = '-1'
@@ -71,6 +70,9 @@ def main():
         else:
             sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
             user_seed = sequences[randint(0, len(sequences))]
+    else:
+        sequences = pickle.load(open(SEQUENCES_NAME, "rb"))
+        user_seed = sequences[randint(0, len(sequences))]
 
     if gen_length.isnumeric():
         gen_length = int(gen_length)
@@ -83,7 +85,6 @@ def main():
 
     print(user_seed + "\n")
 
-    exit(0)
 
     tokenizerPath = 'tokenizer2.p'
     modelFilePath = 'model.h5'

@@ -16,7 +16,7 @@ Major dependencies are:
 
 ---
 
-**System Architecture**: A more detailed account of your system (at least 4 paragraphs) and its components. You should clearly describe what components of script generation that you chose to focus on (e.g., agent personality modeling, dialogue generation, narrative prose generation, suspense modeling, conflict modeling, musical lyric generation, humor and sarcasm modeling, visual animation, computational cinematography…), citing scholarly work as appropriate. Include a block diagram of your system architecture.
+**System Architecture**: A more detailed account of your system (at least 4 paragraphs) and its components. You should clearly describe *what components of script generation that you chose to focus* on (e.g., agent personality modeling, dialogue generation, narrative prose generation, suspense modeling, conflict modeling, musical lyric generation, humor and sarcasm modeling, visual animation, computational cinematography…), citing scholarly work as appropriate. Include a *block diagram* of your system architecture.
 
 This system focuses on comedy generation. Previous works in this realm have focused on joke formation, particularly using strict joke 'formulas' (e.g. [http://www.aclweb.org/anthology/P13-2041]). This system instead attempts to create short stand-up skits with comedic value. The hope is that, by studying enough comedic content, the system will be able to produce unique content that is funny, without a structured understanding of why the product is funny.
 
@@ -45,7 +45,10 @@ Valid calls to the generator:
 
 `python3 create.py`
 
-If the seedText is `random`, the seedText will be set to a random combination of (a-z, ' ', '\n') characters.
+If seedText is `random`, the seed will be set to a random combination of (a-z, ' ', '\n') characters.
+
+Fig. 1 – Diagram of system
+![Figure 1, diagram of system](/structure.png "Optional Title")
 
 ---
 

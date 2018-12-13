@@ -24,7 +24,6 @@ Collection of previous stand-up material was done largely by hand. Stand up rout
 All content came from Jerry Seinfeld, John Mulaney, Sarah Silverman, or Trevor Noah.
 
 Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were coded using one-hot encoding. The model uses an initial embedding layer, two LSTM layers with dropout after each, and a dense layer before the output layer (See summary below). This structure was inspired by online resources and finalized after repeated testing. The model learned on 250 characters of the input set, with the expected output of the next character in the text. It ran for 50 epochs, or until loss stopped decreasing.
-
 | Layer (type)            | Output Shape     | Param # |
 |-------------------------|------------------|---------|
 | embedding_1 (Embedding) | (None, 250, 16)  | 464     |
@@ -35,7 +34,12 @@ Training was done using a Keras neural network. Characters (a-z, ' ', '\n') were
 | dense_1 (Dense)         | (None, 200)      | 100200  |
 | dense_2 (Dense)         | (None, 29)       | 5829    |
 
-Once the model was trained, it is used to generate new stand up routines.
+Once the model was trained, it is used to generate new stand up routines. By default, the generator picks a random sequence from the inspiring set, and uses it to generate the next character of the output text. The generator repeats this process, using the last segment of the growing output text as the input of the model. 
+The generator can also use user input as the initial input seed.
+Valid calls to the generator:
+`python3 create.py <'seedText'> <outputLength>`
+`python3 create.py <'seedText'>`
+`python3 create.py`
 
 
 ===
